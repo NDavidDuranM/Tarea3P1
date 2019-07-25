@@ -21,7 +21,7 @@ public class Cilindrico extends Queso {
 	public double volumen() {
 		// TODO Auto-generated method stub
 		double aux =0;
-		aux= Math.PI*(radio*radio)*longitud;
+		aux= ( Math.PI * Math.pow(radio, 2) );
 		return aux;
 	}
 	

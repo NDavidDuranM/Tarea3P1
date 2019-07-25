@@ -22,7 +22,7 @@ public class CilindricoHueco extends Cilindrico {
 	public double volumen() {
 		// TODO Auto-generated method stub
 		double aux =0;
-		aux= Math.PI*((radio*radio)-(radioInterno*radioInterno))*longitud;
+		aux= (Math.PI * (Math.pow(radio, 2) - Math.pow(radioInterno, 2) ) );
 		
 		return aux;
 	}
