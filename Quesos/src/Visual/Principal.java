@@ -1,5 +1,6 @@
 package Visual;
 
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -16,10 +17,6 @@ import java.awt.event.ActionEvent;
 
 public class Principal extends JFrame {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private ComplejoDeQueso complejo;
 
@@ -46,9 +43,8 @@ public class Principal extends JFrame {
 		complejo = new ComplejoDeQueso(0, 0, 0);
 		setTitle("Complejo de Quesos");
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 580, 418);
-		setLocationRelativeTo(null);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -57,7 +53,6 @@ public class Principal extends JFrame {
 		menuBar.add(mnFactura);
 		
 		JMenuItem mntmFacturarCompra = new JMenuItem("Facturar compra");
-		mntmFacturarCompra.setEnabled(false);
 		mntmFacturarCompra.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Facturar ventana= new Facturar(complejo);
@@ -67,7 +62,6 @@ public class Principal extends JFrame {
 		mnFactura.add(mntmFacturarCompra);
 		
 		JMenuItem mntmVerFacturasRealizadas = new JMenuItem("Ver Facturas realizadas");
-		mntmVerFacturasRealizadas.setEnabled(false);
 		mntmVerFacturasRealizadas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ListaFactura ventana=new ListaFactura(complejo);
@@ -80,7 +74,6 @@ public class Principal extends JFrame {
 		menuBar.add(mnClientes);
 		
 		JMenuItem mntmVerListaDe = new JMenuItem("Ver lista de clientes");
-		mntmVerListaDe.setEnabled(false);
 		mntmVerListaDe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ListaCliente ventana = new ListaCliente(complejo);
@@ -102,37 +95,10 @@ public class Principal extends JFrame {
 		mnQuesos.add(mntmHacerQuesos);
 		
 		JMenuItem mntmVerQuesos = new JMenuItem("Ver quesos");
-		mntmVerQuesos.setEnabled(false);
 		mntmVerQuesos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ListaQueso ventana= new ListaQueso(complejo);
 				ventana.setVisible(true);
-			}
-		});
-		mnFactura.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(complejo.getCantqueso()>0) {
-					mntmFacturarCompra.setEnabled(true);
-					
-				}
-				if(complejo.getCantfactura()>0) {
-					mntmVerFacturasRealizadas.setEnabled(true);
-				}				
-			}
-		});
-		mnQuesos.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(complejo.getCantqueso()>0) {
-					mntmVerQuesos.setEnabled(true);
-				}
-				
-			}
-		});
-		mnClientes.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (complejo.getCantcli()>0) {
-					mntmVerListaDe.setEnabled(true);
-				}
 			}
 		});
 		mnQuesos.add(mntmVerQuesos);

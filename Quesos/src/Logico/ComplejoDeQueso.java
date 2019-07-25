@@ -112,16 +112,6 @@ public class ComplejoDeQueso {
 		return aux;
 	}
 	
-	public boolean existequeso(String codigo) {
-		boolean aux = false;
-		for (int i =0;i<cantqueso && aux == false ;i++) {
-			if(quesos.get(i).getCodigo().equals(codigo)) {
-				aux=true;	
-			}
-		}
-		return aux;
-	}
-	
 	public Queso BuscarQuesoBycode(String codigo) {
 		Queso aux=null;
 		for (int i =0;i<cantqueso;i++) {
