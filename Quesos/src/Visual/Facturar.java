@@ -26,6 +26,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Facturar extends JFrame {
 
@@ -37,6 +39,7 @@ public class Facturar extends JFrame {
 	private JTextField txtTelefono;
 	private JTable TablaQueso;
 	private JTable tableQuesoSeleccionado;
+	private JTextField txtCodigoFactura;
 
 	/**
 	 * Launch the application.
@@ -61,7 +64,7 @@ public class Facturar extends JFrame {
 		
 		Random rand = new Random();
 //		int n = rand.nextInt(100000);
-		Factura helper=new Factura("dick", null, 0, 0);
+		Factura helper=new Factura("0", null, 0, 0);
 		setTitle("Facturar");
 //		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 810, 488);
@@ -70,59 +73,59 @@ public class Facturar extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(10, 11, 774, 126);
-		contentPane.add(panel);
-		panel.setLayout(null);
+		JPanel panelCliente = new JPanel();
+		panelCliente.setBounds(10, 11, 774, 126);
+		contentPane.add(panelCliente);
+		panelCliente.setLayout(null);
 		
 		JLabel lblCedula = new JLabel("Cedula");
 		lblCedula.setBounds(103, 11, 46, 20);
-		panel.add(lblCedula);
+		panelCliente.add(lblCedula);
 		
 		JLabel lblNombre = new JLabel("Nombre");
 		lblNombre.setBounds(326, 11, 46, 20);
-		panel.add(lblNombre);
+		panelCliente.add(lblNombre);
 		
 		JLabel lblApellido = new JLabel("Apellido");
 		lblApellido.setBounds(549, 11, 46, 20);
-		panel.add(lblApellido);
+		panelCliente.add(lblApellido);
 		
 		JLabel lblDireccion = new JLabel("Direccion");
 		lblDireccion.setBounds(103, 64, 46, 20);
-		panel.add(lblDireccion);
+		panelCliente.add(lblDireccion);
 		
 		JLabel lblTelefono = new JLabel("Telefono");
 		lblTelefono.setBounds(326, 64, 59, 20);
-		panel.add(lblTelefono);
+		panelCliente.add(lblTelefono);
 		
 		txtCedula = new JTextField();
 		txtCedula.setBounds(103, 30, 120, 20);
-		panel.add(txtCedula);
+		panelCliente.add(txtCedula);
 		txtCedula.setColumns(10);
 		
 		txtNombre = new JTextField();
 		txtNombre.setEnabled(false);
 		txtNombre.setColumns(10);
 		txtNombre.setBounds(326, 30, 120, 20);
-		panel.add(txtNombre);
+		panelCliente.add(txtNombre);
 		
 		txtApellido = new JTextField();
 		txtApellido.setEnabled(false);
 		txtApellido.setColumns(10);
 		txtApellido.setBounds(549, 30, 120, 20);
-		panel.add(txtApellido);
+		panelCliente.add(txtApellido);
 		
 		txtDireccion = new JTextField();
 		txtDireccion.setEnabled(false);
 		txtDireccion.setColumns(10);
 		txtDireccion.setBounds(103, 84, 120, 20);
-		panel.add(txtDireccion);
+		panelCliente.add(txtDireccion);
 		
 		txtTelefono = new JTextField();
 		txtTelefono.setEnabled(false);
 		txtTelefono.setColumns(10);
 		txtTelefono.setBounds(326, 84, 120, 20);
-		panel.add(txtTelefono);
+		panelCliente.add(txtTelefono);
 		
 		JButton btnRegistrar = new JButton("Registrar");
 		btnRegistrar.addActionListener(new ActionListener() {
@@ -139,17 +142,17 @@ public class Facturar extends JFrame {
 		});
 		btnRegistrar.setEnabled(false);
 		btnRegistrar.setBounds(567, 83, 89, 23);
-		panel.add(btnRegistrar);
+		panelCliente.add(btnRegistrar);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new TitledBorder(null, "Facturar", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_1.setBounds(10, 148, 774, 291);
-		contentPane.add(panel_1);
-		panel_1.setLayout(null);
+		JPanel PanelFactura = new JPanel();
+		PanelFactura.setBorder(new TitledBorder(null, "Facturar", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		PanelFactura.setBounds(10, 148, 774, 291);
+		contentPane.add(PanelFactura);
+		PanelFactura.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 44, 364, 236);
-		panel_1.add(scrollPane);
+		PanelFactura.add(scrollPane);
 		
 		TablaQueso = new JTable();
 		Object[][] QuesoHelper =new Object[complejo.getCantqueso()][5];
@@ -181,14 +184,14 @@ public class Facturar extends JFrame {
 		
 		JLabel lblQuesos = new JLabel("Quesos");
 		lblQuesos.setBounds(148, 15, 46, 14);
-		panel_1.add(lblQuesos);
+		PanelFactura.add(lblQuesos);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(401, 101, 363, 179);
-		panel_1.add(scrollPane_1);
+		PanelFactura.add(scrollPane_1);
 		
 		tableQuesoSeleccionado = new JTable();
-		Object[][] QuesoHelperSelecionado =new Object[complejo.getCantqueso()][5];
+		Object[][] QuesoHelperSelecionado =new Object[complejo.getCantqueso()][3];
 //		int auxcountQuesoSeleccionado=0;
 //		for(int i =0; i<complejo.getCantqueso();i++,auxcountQuesoSeleccionado++) {
 //			if(complejo.getQuesos().get(i)instanceof Esferico) {
@@ -218,19 +221,20 @@ public class Facturar extends JFrame {
 		JButton btnSeleccionar = new JButton("Seleccionar");
 		
 		btnSeleccionar.setBounds(401, 15, 89, 23);
-		panel_1.add(btnSeleccionar);
+		PanelFactura.add(btnSeleccionar);
 		
 		JLabel lblTotal = new JLabel("Total:");
 		lblTotal.setBounds(401, 51, 46, 14);
-		panel_1.add(lblTotal);
+		PanelFactura.add(lblTotal);
 		
 		JLabel labelpreciototal = new JLabel("0.0");
 		labelpreciototal.setBounds(456, 51, 89, 14);
-		panel_1.add(labelpreciototal);
+		PanelFactura.add(labelpreciototal);
 		
 		JButton btnFacturar = new JButton("Facturar");
 		btnFacturar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				helper.setCodigo(txtCodigoFactura.getText());
 				helper.setCliente(complejo.BuscarClienteBycode(txtCedula.getText()));
 				helper.setPreciofacturado(helper.preciototal());
 				complejo.getFacturas().add(helper);
@@ -238,10 +242,49 @@ public class Facturar extends JFrame {
 			}
 		});
 		btnFacturar.setBounds(675, 15, 89, 23);
-		panel_1.add(btnFacturar);
+		PanelFactura.add(btnFacturar);
+		
+		txtCodigoFactura = new JTextField();
+		if(complejo.getCantfactura()==0){
+			txtCodigoFactura.setText("0");
+		}else {
+			txtCodigoFactura.setText(complejo.getFacturas().get(complejo.getFacturas().size()).getCodigo());
+		}
+		txtCodigoFactura.setEnabled(false);
+		txtCodigoFactura.setBounds(511, 15, 141, 23);
+		PanelFactura.add(txtCodigoFactura);
+		txtCodigoFactura.setColumns(10);
 		
 		
-		
+		txtCedula.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(complejo.existecliente(txtCedula.getText())== true) {
+					txtNombre.setEnabled(false);
+					txtApellido.setEnabled(false);
+					txtDireccion.setEnabled(false);
+					txtTelefono.setEnabled(false);
+					btnRegistrar.setEnabled(false);
+					txtNombre.setText(complejo.BuscarClienteBycode(txtCedula.getText()).getNombre());
+					txtApellido.setText(complejo.BuscarClienteBycode(txtCedula.getText()).getApellido());
+					txtDireccion.setText(complejo.BuscarClienteBycode(txtCedula.getText()).getDireccion());
+					txtTelefono.setText(Integer.toString((complejo.BuscarClienteBycode(txtCedula.getText()).getTelefono())));
+					
+				}
+				else {
+					txtNombre.setEnabled(true);
+					txtApellido.setEnabled(true);
+					txtDireccion.setEnabled(true);
+					txtTelefono.setEnabled(true);
+					btnRegistrar.setEnabled(true);
+					txtNombre.setText("");
+					txtApellido.setText("");
+					txtDireccion.setText("");
+					txtTelefono.setText("");
+					
+				}
+			}
+		});
 		txtCedula.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(complejo.existecliente(txtCedula.getText())== true) {
@@ -250,6 +293,11 @@ public class Facturar extends JFrame {
 					txtDireccion.setEnabled(false);
 					txtTelefono.setEnabled(false);
 					btnRegistrar.setEnabled(false);
+					txtNombre.setText(complejo.BuscarClienteBycode(txtCedula.getText()).getNombre());
+					txtApellido.setText(complejo.BuscarClienteBycode(txtCedula.getText()).getApellido());
+					txtDireccion.setText(complejo.BuscarClienteBycode(txtCedula.getText()).getDireccion());
+					txtTelefono.setText(Integer.toString((complejo.BuscarClienteBycode(txtCedula.getText()).getTelefono())));
+					
 				}
 				else {
 					txtNombre.setEnabled(true);
@@ -257,18 +305,25 @@ public class Facturar extends JFrame {
 					txtDireccion.setEnabled(true);
 					txtTelefono.setEnabled(true);
 					btnRegistrar.setEnabled(true);
+					txtNombre.setText("");
+					txtApellido.setText("");
+					txtDireccion.setText("");
+					txtTelefono.setText("");
+					
 				}
 			}
 		});
 		btnSeleccionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+//				if() {
+					
+//				}
 				helper.getQuesos().add(complejo.BuscarQuesoBycode(TablaQueso.getValueAt(TablaQueso.getSelectedRow(), 1).toString()));
 				helper.setCantqueso(helper.getCantqueso()+1);
 				
 				labelpreciototal.setText(Double.toString(helper.preciototal()));
 				int auxcountQuesoSeleccionado=0;
-				for(int i =0; i<complejo.getCantqueso();i++,auxcountQuesoSeleccionado++) {
+				for(int i =0; i<helper.getCantqueso();i++,auxcountQuesoSeleccionado++) {
 					if(complejo.getQuesos().get(i)instanceof Esferico) {
 						QuesoHelperSelecionado[auxcountQuesoSeleccionado][0]="Queso Esferico";
 					}
@@ -279,7 +334,7 @@ public class Facturar extends JFrame {
 						QuesoHelperSelecionado[auxcountQuesoSeleccionado][0]="Queso Cilindrico con Hueco";
 					}
 					QuesoHelperSelecionado[auxcountQuesoSeleccionado][1]=helper.getQuesos().get(i).volumen();
-					QuesoHelperSelecionado[auxcountQuesoSeleccionado][2]=helper.getPreciofacturado();
+					QuesoHelperSelecionado[auxcountQuesoSeleccionado][2]=helper.getQuesos().get(i).preciototal();
 					
 					
 					
