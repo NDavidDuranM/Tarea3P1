@@ -1,6 +1,5 @@
 package Visual;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -17,6 +16,10 @@ import java.awt.event.ActionEvent;
 
 public class Principal extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private ComplejoDeQueso complejo;
 
@@ -45,6 +48,7 @@ public class Principal extends JFrame {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 580, 418);
+		setLocationRelativeTo(null);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
