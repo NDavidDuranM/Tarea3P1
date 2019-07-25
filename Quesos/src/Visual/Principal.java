@@ -43,7 +43,7 @@ public class Principal extends JFrame {
 		complejo = new ComplejoDeQueso(0, 0, 0);
 		setTitle("Complejo de Quesos");
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 580, 418);
 		
 		JMenuBar menuBar = new JMenuBar();

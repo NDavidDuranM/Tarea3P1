@@ -12,7 +12,7 @@ public class Esferico extends Queso {
 	public double volumen() {
 		// TODO Auto-generated method stub
 		double aux =0;
-		aux= Math.PI*(radio*radio*radio)*(4/3);
+		aux= (Math.PI*(radio*radio*radio)*4)/3;
 		return aux;
 	}
 }

@@ -22,6 +22,10 @@ import javax.swing.JButton;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.SpinnerNumberModel;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 public class HacerQueso extends JFrame {
 
@@ -129,6 +133,7 @@ public class HacerQueso extends JFrame {
 		contentPane.add(spnRadioInterno);
 		
 		JSpinner spnLongitud = new JSpinner();
+		spnLongitud.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
 		spnLongitud.setEnabled(false);
 		spnLongitud.setBounds(146, 205, 85, 20);
 		contentPane.add(spnLongitud);
@@ -136,22 +141,32 @@ public class HacerQueso extends JFrame {
 		JButton btnAgregar = new JButton("Agregar");
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(rdbtnEsferico.isSelected()==true) {
-					Esferico aux =new Esferico(Double.parseDouble(txtPrecioBase.getText()), Double.parseDouble(txtPrecioUnitario.getText()), Double.parseDouble(spnRadio.getValue().toString()), txtCodigo.getText());
-					complejo.getQuesos().add(aux);
-					complejo.setCantqueso(complejo.getCantqueso()+1);
 				
+				if (complejo.existequeso(txtCodigo.getText())==false) {
+					
+					if(rdbtnEsferico.isSelected()==true) {
+						Esferico aux =new Esferico(Double.parseDouble(txtPrecioBase.getText()), Double.parseDouble(txtPrecioUnitario.getText()), Double.parseDouble(spnRadio.getValue().toString()), txtCodigo.getText());
+						complejo.getQuesos().add(aux);
+						complejo.setCantqueso(complejo.getCantqueso()+1);
+					
+					}
+					if(rdbtnCilindricoHueco.isSelected()==true) {
+						CilindricoHueco aux =new CilindricoHueco(Double.parseDouble(txtPrecioBase.getText()), Double.parseDouble(txtPrecioUnitario.getText()), Double.parseDouble(spnRadio.getValue().toString()),Double.parseDouble(spnLongitud.getValue().toString()),Double.parseDouble(spnRadioInterno.getValue().toString()), txtCodigo.getText());
+						complejo.getQuesos().add(aux);
+						complejo.setCantqueso(complejo.getCantqueso()+1);
+					}
+					if(rdbtnCilindrico.isSelected()==true) {
+						Cilindrico aux =new Cilindrico(Double.parseDouble(txtPrecioBase.getText()), Double.parseDouble(txtPrecioUnitario.getText()), Double.parseDouble(spnRadio.getValue().toString()),Double.parseDouble(spnLongitud.getValue().toString()), txtCodigo.getText());
+						complejo.getQuesos().add(aux);
+						complejo.setCantqueso(complejo.getCantqueso()+1);
+					}
+					
+				}else {
+					System.out.println("Ya existe un queso con este codigo");
 				}
-				if(rdbtnCilindricoHueco.isSelected()==true) {
-					CilindricoHueco aux =new CilindricoHueco(Double.parseDouble(txtPrecioBase.getText()), Double.parseDouble(txtPrecioUnitario.getText()), Double.parseDouble(spnRadio.getValue().toString()),Double.parseDouble(spnLongitud.getValue().toString()),Double.parseDouble(spnRadioInterno.getValue().toString()), txtCodigo.getText());
-					complejo.getQuesos().add(aux);
-					complejo.setCantqueso(complejo.getCantqueso()+1);
-				}
-				if(rdbtnCilindrico.isSelected()==true) {
-					Cilindrico aux =new Cilindrico(Double.parseDouble(txtPrecioBase.getText()), Double.parseDouble(txtPrecioUnitario.getText()), Double.parseDouble(spnRadio.getValue().toString()),Double.parseDouble(spnLongitud.getValue().toString()), txtCodigo.getText());
-					complejo.getQuesos().add(aux);
-					complejo.setCantqueso(complejo.getCantqueso()+1);
-				}
+				
+				
+				
 				txtCodigo.setText("");
 				txtPrecioBase.setText("");
 				txtPrecioUnitario.setText("");
@@ -189,7 +204,12 @@ public class HacerQueso extends JFrame {
 		spnRadio.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				spnRadioInterno.setModel(new SpinnerNumberModel(0, 0, Integer.parseInt(spnRadio.getValue().toString()), 1));
+				spnRadioInterno.setModel(new SpinnerNumberModel(0, 0, Integer.parseInt(spnRadio.getValue().toString())-1, 1));
+			}
+		});
+		spnRadio.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				spnRadioInterno.setModel(new SpinnerNumberModel(0, 0, Integer.parseInt(spnRadio.getValue().toString())-1, 1));
 			}
 		});
 	}
