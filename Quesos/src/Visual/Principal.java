@@ -14,6 +14,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.event.MenuListener;
+import javax.swing.event.MenuEvent;
 
 public class Principal extends JFrame {
 
@@ -53,6 +55,7 @@ public class Principal extends JFrame {
 		menuBar.add(mnFactura);
 		
 		JMenuItem mntmFacturarCompra = new JMenuItem("Facturar compra");
+		mntmFacturarCompra.setEnabled(false);
 		mntmFacturarCompra.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Facturar ventana= new Facturar(complejo);
@@ -62,6 +65,7 @@ public class Principal extends JFrame {
 		mnFactura.add(mntmFacturarCompra);
 		
 		JMenuItem mntmVerFacturasRealizadas = new JMenuItem("Ver Facturas realizadas");
+		mntmVerFacturasRealizadas.setEnabled(false);
 		mntmVerFacturasRealizadas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ListaFactura ventana=new ListaFactura(complejo);
@@ -74,6 +78,7 @@ public class Principal extends JFrame {
 		menuBar.add(mnClientes);
 		
 		JMenuItem mntmVerListaDe = new JMenuItem("Ver lista de clientes");
+		mntmVerListaDe.setEnabled(false);
 		mntmVerListaDe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ListaCliente ventana = new ListaCliente(complejo);
@@ -95,6 +100,7 @@ public class Principal extends JFrame {
 		mnQuesos.add(mntmHacerQuesos);
 		
 		JMenuItem mntmVerQuesos = new JMenuItem("Ver quesos");
+		mntmVerQuesos.setEnabled(false);
 		mntmVerQuesos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ListaQueso ventana= new ListaQueso(complejo);
@@ -106,5 +112,46 @@ public class Principal extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		mnClientes.addMenuListener(new MenuListener() {
+			public void menuCanceled(MenuEvent e) {
+			}
+			public void menuDeselected(MenuEvent e) {
+			}
+			public void menuSelected(MenuEvent e) {
+				if(complejo.getCantcli()>0) {
+					mntmVerListaDe.setEnabled(true);
+				}
+				
+			}
+		});
+		mnQuesos.addMenuListener(new MenuListener() {
+			public void menuCanceled(MenuEvent e) {
+			}
+			public void menuDeselected(MenuEvent e) {
+			}
+			public void menuSelected(MenuEvent e) {
+				if(complejo.getCantqueso()>0) {
+					mntmVerQuesos.setEnabled(true);	
+				}
+				
+			}
+			
+		});
+		mnFactura.addMenuListener(new MenuListener() {
+			public void menuCanceled(MenuEvent e) {
+			}
+			public void menuDeselected(MenuEvent e) {
+			}
+			public void menuSelected(MenuEvent e) {
+				if(complejo.getCantqueso()>0) {
+					mntmFacturarCompra.setEnabled(true);
+				}
+				if(complejo.getCantfactura()>0) {
+					mntmVerFacturasRealizadas.setEnabled(true);
+				}
+				
+				
+			}
+		});
 	}
 }

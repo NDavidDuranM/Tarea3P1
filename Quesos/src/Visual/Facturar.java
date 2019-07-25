@@ -234,11 +234,13 @@ public class Facturar extends JFrame {
 		JButton btnFacturar = new JButton("Facturar");
 		btnFacturar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				helper.setCodigo(txtCodigoFactura.getText());
 				helper.setCliente(complejo.BuscarClienteBycode(txtCedula.getText()));
 				helper.setPreciofacturado(helper.preciototal());
 				complejo.getFacturas().add(helper);
 				complejo.setCantfactura(complejo.getCantfactura()+1);
+				dispose();
 			}
 		});
 		btnFacturar.setBounds(675, 15, 89, 23);
@@ -310,6 +312,17 @@ public class Facturar extends JFrame {
 					txtDireccion.setText("");
 					txtTelefono.setText("");
 					
+				}
+				if(txtCedula.getText().equals("")) {
+					txtNombre.setEnabled(false);
+					txtApellido.setEnabled(false);
+					txtDireccion.setEnabled(false);
+					txtTelefono.setEnabled(false);
+					btnRegistrar.setEnabled(false);
+					txtNombre.setText("");
+					txtApellido.setText("");
+					txtDireccion.setText("");
+					txtTelefono.setText("");
 				}
 			}
 		});
