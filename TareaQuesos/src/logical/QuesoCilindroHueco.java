@@ -18,22 +18,13 @@ public class QuesoCilindroHueco extends QuesoCilindro {
 		this.radioInterno = radioInterno;
 	}
 
-	public double areaBase()
-	{
-		return 0;
-	}
-	
-	
 	@Override
 	public double Volumen() {
-		
-		return (3.1416)*longitud*(Math.pow(radio, 2) - Math.pow(radioInterno, 2));
+		return (float) ( areaBase() * longitud );
 	}
-	
-	public static double parcialVolumen(double radioParcial, double radioParcialInterno, double longitudParcial) {
-		
-		return (3.1416)*longitudParcial*(Math.pow(radioParcial, 2) - Math.pow(radioParcialInterno, 2));
+
+	public double areaBase() {
+		return (Math.PI * (Math.pow(radio, 2) - Math.pow(radioInterno, 2) ) );
 	}
-	
 
 }

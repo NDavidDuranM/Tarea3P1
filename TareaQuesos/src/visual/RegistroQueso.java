@@ -124,7 +124,7 @@ public class RegistroQueso extends JDialog {
 					{
 						int precioBase = Integer.valueOf(txtPrecioBase.getText());
 						int precioUnidad = Integer.valueOf(txtPrecioUnidad.getText());
-						precioTotal = Double.valueOf(QuesoEsferico.precioTotal(precioBase, precioUnidad, volumenParcial));
+						precioTotal = Double.valueOf(QuesoEsferico.precioTotal());
 
 					}catch(Exception e1)
 					{

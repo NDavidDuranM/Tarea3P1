@@ -14,13 +14,6 @@ public class QuesoEsferico extends Queso {
 		volumen = Math.round(volumen * 100) / 100f;
 		return volumen;
 	}
-
-	//Este volumen es para mostrarle al usuario lo que va a registrar
-	public static double parcialVolumen(double parcialRadio)
-	{
-		return 4/3*(3.1416)*Math.pow(parcialRadio, 3);
-	}
 	
-
-
+	
 }

@@ -11,8 +11,11 @@ public class QuesoCilindro extends Queso{
 
 	@Override
 	public double Volumen() {
-		
-		return (3.1416)*Math.pow(radio, 2)*longitud;
+		return areaBase() * longitud;
+	}
+
+	public double areaBase() {
+		return ( Math.PI * Math.pow(radio, 2) );
 	}
 
 	public double getLongitud() {
@@ -21,11 +24,6 @@ public class QuesoCilindro extends Queso{
 
 	public void setLongitud(double longitud) {
 		this.longitud = longitud;
-	}
-	
-	public static double parcialVolumen(double radioParcial, double longitudParcial) {
-		
-		return (3.1416)*Math.pow(radioParcial, 2)*longitudParcial;
 	}
 
 }
