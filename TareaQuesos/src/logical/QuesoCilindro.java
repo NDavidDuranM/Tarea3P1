@@ -22,21 +22,10 @@ public class QuesoCilindro extends Queso{
 	public void setLongitud(double longitud) {
 		this.longitud = longitud;
 	}
-
-	@Override
-	public double precioTotal() {
-		
-		return precioBase+precioUnidad*Volumen();
-
-	}
 	
 	public static double parcialVolumen(double radioParcial, double longitudParcial) {
 		
 		return (3.1416)*Math.pow(radioParcial, 2)*longitudParcial;
 	}
-	public static double parcialPrecioTotal(int precioBase, int precioUnidad, double Volumen) {
-		
-		return precioBase+precioUnidad*Volumen;
 
-	}
 }

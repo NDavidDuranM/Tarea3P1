@@ -63,8 +63,12 @@ public abstract class Queso {
 		this.radio = radio;
 	}
 
-
-
 	public abstract double Volumen();
-	public abstract double precioTotal();
+	
+	public double precioTotal() {
+		double precio = 0;
+		precio = precioBase + ( precioUnidad * Volumen() );
+		precio = Math.round(precio * 100) / 100f;
+		return precio;
+	}
 }

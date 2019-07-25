@@ -9,26 +9,18 @@ public class QuesoEsferico extends Queso {
 
 	@Override
 	public double Volumen() {
-		
-		return 4/3*(3.1416)*Math.pow(radio, 3);
+		double volumen = 0;
+		volumen = (4 * Math.PI * Math.pow(radio, 3) ) / 3;
+		volumen = Math.round(volumen * 100) / 100f;
+		return volumen;
 	}
 
-	@Override
-	public double precioTotal() {
-		
-		return precioBase+precioUnidad*Volumen();
-
-	}
-	
 	//Este volumen es para mostrarle al usuario lo que va a registrar
 	public static double parcialVolumen(double parcialRadio)
 	{
 		return 4/3*(3.1416)*Math.pow(parcialRadio, 3);
 	}
-	public static double parcialPrecioTotal(int precioBase, int precioUnidad, double Volumen) {
-		
-		return precioBase+precioUnidad*Volumen;
+	
 
-	}
 
 }

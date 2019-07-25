@@ -17,13 +17,6 @@ public class QuesoCilindroHueco extends QuesoCilindro {
 	public void setRadioInterno(double radioInterno) {
 		this.radioInterno = radioInterno;
 	}
-	
-	@Override
-	public double precioTotal() {
-		
-		return precioBase+precioUnidad*Volumen();
-
-	}
 
 	public double areaBase()
 	{
@@ -41,10 +34,6 @@ public class QuesoCilindroHueco extends QuesoCilindro {
 		
 		return (3.1416)*longitudParcial*(Math.pow(radioParcial, 2) - Math.pow(radioParcialInterno, 2));
 	}
-	public static double parcialPrecioTotal(int precioBase, int precioUnidad, double Volumen) {
-		
-		return precioBase+precioUnidad*Volumen;
-
-	}
+	
 
 }
