@@ -58,7 +58,9 @@ public class Comercio {
 	public void borrarQuesos(ArrayList<Queso> quesosV)
 	{
 		//Creando una copia para no afectar a quesosV
-		for (int i = 0; i < quesos.size(); i++) {
+		int limite = quesos.size();
+		
+		for (int i = 0; i < limite; i++) {
 			for (int j = 0; j < quesosV.size(); j++) {
 				if(quesos.get(i).getId().equalsIgnoreCase(quesosV.get(j).getId()))
 				{
