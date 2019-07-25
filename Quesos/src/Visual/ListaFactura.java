@@ -65,7 +65,7 @@ public class ListaFactura extends JFrame {
 		table = new JTable();
 		Object[][] FacturaHelper = new Object[complejo.getCantfactura()][4];
 		int auxcountFactura=0;
-		System.out.println("Hasta Aqui "+auxcountFactura);
+		
 		for(int i =0; i<complejo.getCantfactura();i++,auxcountFactura++) {
 			
 			FacturaHelper[auxcountFactura][0]=complejo.getFacturas().get(i).getCodigo();
@@ -74,7 +74,7 @@ public class ListaFactura extends JFrame {
 			FacturaHelper[auxcountFactura][3]=complejo.getFacturas().get(i).getCantqueso();
 			
 		}	
-		System.out.println("Hasta Aqui "+auxcountFactura);
+		
 		table.setModel(new DefaultTableModel(
 			FacturaHelper,
 			new String[] {
@@ -83,7 +83,7 @@ public class ListaFactura extends JFrame {
 		));
 		table.setFillsViewportHeight(true);
 		scrollPane.setViewportView(table);
-		System.out.println("Hasta Aqui "+auxcountFactura);
+		
 	}
 	
 
