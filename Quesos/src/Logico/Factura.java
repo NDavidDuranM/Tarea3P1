@@ -83,5 +83,14 @@ public class Factura {
 
 		return precio;
 	}
+	public boolean existequeso(String codigo) {
+		boolean aux = false;
+		for (int i =0;i<cantqueso && aux == false ;i++) {
+			if(quesos.get(i).getCodigo().equals(codigo)) {
+				aux=true;
+			}
+		}
+		return aux;
+	}
 
 }

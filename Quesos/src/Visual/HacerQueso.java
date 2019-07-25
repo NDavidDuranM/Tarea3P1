@@ -19,6 +19,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JSpinner;
 import javax.swing.JButton;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.SpinnerNumberModel;
 
 public class HacerQueso extends JFrame {
 
@@ -105,6 +108,7 @@ public class HacerQueso extends JFrame {
 		txtCodigo.setColumns(10);
 		
 		JSpinner spnRadio = new JSpinner();
+		spnRadio.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
 		spnRadio.setBounds(185, 36, 86, 20);
 		contentPane.add(spnRadio);
 		
@@ -119,6 +123,7 @@ public class HacerQueso extends JFrame {
 		txtPrecioUnitario.setColumns(10);
 		
 		JSpinner spnRadioInterno = new JSpinner();
+		spnRadioInterno.setModel(new SpinnerNumberModel(0, 0, 0, 1));
 		spnRadioInterno.setEnabled(false);
 		spnRadioInterno.setBounds(10, 205, 96, 20);
 		contentPane.add(spnRadioInterno);
@@ -135,6 +140,7 @@ public class HacerQueso extends JFrame {
 					Esferico aux =new Esferico(Double.parseDouble(txtPrecioBase.getText()), Double.parseDouble(txtPrecioUnitario.getText()), Double.parseDouble(spnRadio.getValue().toString()), txtCodigo.getText());
 					complejo.getQuesos().add(aux);
 					complejo.setCantqueso(complejo.getCantqueso()+1);
+				
 				}
 				if(rdbtnCilindricoHueco.isSelected()==true) {
 					CilindricoHueco aux =new CilindricoHueco(Double.parseDouble(txtPrecioBase.getText()), Double.parseDouble(txtPrecioUnitario.getText()), Double.parseDouble(spnRadio.getValue().toString()),Double.parseDouble(spnLongitud.getValue().toString()),Double.parseDouble(spnRadioInterno.getValue().toString()), txtCodigo.getText());
@@ -146,6 +152,9 @@ public class HacerQueso extends JFrame {
 					complejo.getQuesos().add(aux);
 					complejo.setCantqueso(complejo.getCantqueso()+1);
 				}
+				txtCodigo.setText("");
+				txtPrecioBase.setText("");
+				txtPrecioUnitario.setText("");
 			}
 		});
 		btnAgregar.setBounds(304, 204, 89, 23);
@@ -175,6 +184,12 @@ public class HacerQueso extends JFrame {
 				rdbtnEsferico.setSelected(false);
 				spnLongitud.setEnabled(true);
 				spnRadioInterno.setEnabled(false);
+			}
+		});
+		spnRadio.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				spnRadioInterno.setModel(new SpinnerNumberModel(0, 0, Integer.parseInt(spnRadio.getValue().toString()), 1));
 			}
 		});
 	}

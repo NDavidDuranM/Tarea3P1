@@ -315,8 +315,8 @@ public class Facturar extends JFrame {
 		});
 		btnSeleccionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				if() {
-					
+//				if(helper) {
+//					
 //				}
 				helper.getQuesos().add(complejo.BuscarQuesoBycode(TablaQueso.getValueAt(TablaQueso.getSelectedRow(), 1).toString()));
 				helper.setCantqueso(helper.getCantqueso()+1);
