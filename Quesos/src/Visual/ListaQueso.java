@@ -17,6 +17,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import java.awt.Toolkit;
 
 public class ListaQueso extends JFrame {
 
@@ -43,10 +44,12 @@ public class ListaQueso extends JFrame {
 	 * Create the frame.
 	 */
 	public ListaQueso(ComplejoDeQueso complejo) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaQueso.class.getResource("/img/if__q_2559784.png")));
 		setResizable(false);
 		setTitle("Lista de quesos");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 640, 300);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

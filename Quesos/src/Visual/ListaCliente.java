@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 
 
 import javax.swing.JScrollPane;
+import java.awt.Toolkit;
 
 public class ListaCliente extends JFrame {
 
@@ -43,10 +44,12 @@ public class ListaCliente extends JFrame {
 	 * Create the frame.
 	 */
 	public ListaCliente(ComplejoDeQueso complejo) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaCliente.class.getResource("/img/if_88_171447.png")));
 		setTitle("Lista de clientes");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

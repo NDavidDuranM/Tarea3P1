@@ -26,6 +26,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+import java.awt.Toolkit;
 
 public class HacerQueso extends JFrame {
 
@@ -54,9 +55,12 @@ public class HacerQueso extends JFrame {
 	 * Create the frame.
 	 */
 	public HacerQueso(ComplejoDeQueso complejo) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(HacerQueso.class.getResource("/img/if__q_2559784.png")));
+		setResizable(false);
 		setTitle("Hacer Queso");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

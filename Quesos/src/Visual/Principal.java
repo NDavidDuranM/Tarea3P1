@@ -26,6 +26,10 @@ import javax.swing.event.MenuEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowStateListener;
+import java.awt.SystemColor;
+import javax.swing.ImageIcon;
+import java.awt.Toolkit;
+import java.awt.Color;
 
 public class Principal extends JFrame {
 
@@ -56,6 +60,7 @@ public class Principal extends JFrame {
 	 * Create the frame.
 	 */
 	public Principal() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/img/if_list-alt_173045.png")));
 				
 		complejo = new ComplejoDeQueso(0, 0, 0);
 		dircomplejo =new File("DataComplejo.txt");
@@ -78,15 +83,58 @@ public class Principal extends JFrame {
 		setTitle("Complejo de Quesos");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 580, 418);
+		setBounds(100, 100, 450, 300);
+		setLocationRelativeTo(null);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
+		JMenu mnClientes = new JMenu("Registro");
+		mnClientes.setIcon(new ImageIcon(Principal.class.getResource("/img/if_book_sans_add_103401.png")));
+		menuBar.add(mnClientes);
+		
+		JMenuItem mntmHacerQuesos = new JMenuItem("Quesos");
+		mntmHacerQuesos.setIcon(new ImageIcon(Principal.class.getResource("/img/if__q_2559784.png")));
+		mnClientes.add(mntmHacerQuesos);
+		mntmHacerQuesos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				HacerQueso ventana = new HacerQueso(complejo);
+				ventana.setVisible(true);
+			}
+		});
+		
+		JMenu mnQuesos = new JMenu("Listar");
+		mnQuesos.setIcon(new ImageIcon(Principal.class.getResource("/img/if_list_103613.png")));
+		menuBar.add(mnQuesos);
+		
+		JMenuItem mntmVerQuesos = new JMenuItem("Quesos");
+		mntmVerQuesos.setIcon(new ImageIcon(Principal.class.getResource("/img/if__q_2559784.png")));
+		mntmVerQuesos.setEnabled(false);
+		mntmVerQuesos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListaQueso ventana= new ListaQueso(complejo);
+				ventana.setVisible(true);
+			}
+		});
+		
+		JMenuItem mntmVerListaDe = new JMenuItem("Clientes");
+		mntmVerListaDe.setIcon(new ImageIcon(Principal.class.getResource("/img/if_88_171447.png")));
+		mnQuesos.add(mntmVerListaDe);
+		mntmVerListaDe.setEnabled(false);
+		mntmVerListaDe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListaCliente ventana = new ListaCliente(complejo);
+				ventana.setVisible(true);
+			}
+		});
+		mnQuesos.add(mntmVerQuesos);
+		
 		JMenu mnFactura = new JMenu("Factura");
+		mnFactura.setIcon(new ImageIcon(Principal.class.getResource("/img/if_report_card_2639898.png")));
 		menuBar.add(mnFactura);
 		
-		JMenuItem mntmFacturarCompra = new JMenuItem("Facturar compra");
+		JMenuItem mntmFacturarCompra = new JMenuItem("Crear factura");
+		mntmFacturarCompra.setIcon(new ImageIcon(Principal.class.getResource("/img/if_plus_103681.png")));
 		mntmFacturarCompra.setEnabled(false);
 		mntmFacturarCompra.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -96,7 +144,8 @@ public class Principal extends JFrame {
 		});
 		mnFactura.add(mntmFacturarCompra);
 		
-		JMenuItem mntmVerFacturasRealizadas = new JMenuItem("Ver Facturas realizadas");
+		JMenuItem mntmVerFacturasRealizadas = new JMenuItem("Facturas");
+		mntmVerFacturasRealizadas.setIcon(new ImageIcon(Principal.class.getResource("/img/if_090_Notes_183217.png")));
 		mntmVerFacturasRealizadas.setEnabled(false);
 		mntmVerFacturasRealizadas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -105,42 +154,24 @@ public class Principal extends JFrame {
 			}
 		});
 		mnFactura.add(mntmVerFacturasRealizadas);
-		
-		JMenu mnClientes = new JMenu("Clientes");
-		menuBar.add(mnClientes);
-		
-		JMenuItem mntmVerListaDe = new JMenuItem("Ver lista de clientes");
-		mntmVerListaDe.setEnabled(false);
-		mntmVerListaDe.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ListaCliente ventana = new ListaCliente(complejo);
-				ventana.setVisible(true);
+		mnFactura.addMenuListener(new MenuListener() {
+			public void menuCanceled(MenuEvent e) {
+			}
+			public void menuDeselected(MenuEvent e) {
+			}
+			public void menuSelected(MenuEvent e) {
+				if(complejo.getCantqueso()>0) {
+					mntmFacturarCompra.setEnabled(true);
+				}
+				if(complejo.getCantfactura()>0) {
+					mntmVerFacturasRealizadas.setEnabled(true);
+				}
+				
+				
 			}
 		});
-		mnClientes.add(mntmVerListaDe);
-		
-		JMenu mnQuesos = new JMenu("Quesos");
-		menuBar.add(mnQuesos);
-		
-		JMenuItem mntmHacerQuesos = new JMenuItem("Hacer quesos");
-		mntmHacerQuesos.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				HacerQueso ventana = new HacerQueso(complejo);
-				ventana.setVisible(true);
-			}
-		});
-		mnQuesos.add(mntmHacerQuesos);
-		
-		JMenuItem mntmVerQuesos = new JMenuItem("Ver quesos");
-		mntmVerQuesos.setEnabled(false);
-		mntmVerQuesos.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ListaQueso ventana= new ListaQueso(complejo);
-				ventana.setVisible(true);
-			}
-		});
-		mnQuesos.add(mntmVerQuesos);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(0, 191, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -168,22 +199,6 @@ public class Principal extends JFrame {
 				
 			}
 			
-		});
-		mnFactura.addMenuListener(new MenuListener() {
-			public void menuCanceled(MenuEvent e) {
-			}
-			public void menuDeselected(MenuEvent e) {
-			}
-			public void menuSelected(MenuEvent e) {
-				if(complejo.getCantqueso()>0) {
-					mntmFacturarCompra.setEnabled(true);
-				}
-				if(complejo.getCantfactura()>0) {
-					mntmVerFacturasRealizadas.setEnabled(true);
-				}
-				
-				
-			}
 		});
 		
 		addWindowListener(new WindowAdapter() {

@@ -17,6 +17,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import java.awt.Toolkit;
 
 public class ListaFactura extends JFrame {
 
@@ -43,10 +44,12 @@ public class ListaFactura extends JFrame {
 	 * Create the frame.
 	 */
 	public ListaFactura(ComplejoDeQueso complejo) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaFactura.class.getResource("/img/if_090_Notes_183217.png")));
 		setResizable(false);
 		setTitle("Lista de facturas");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 638, 300);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

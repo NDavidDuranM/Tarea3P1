@@ -28,9 +28,14 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.Toolkit;
 
 public class Facturar extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtCedula;
 	private JTextField txtNombre;
@@ -61,6 +66,8 @@ public class Facturar extends JFrame {
 	 * Create the frame.
 	 */
 	public Facturar(ComplejoDeQueso complejo) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Facturar.class.getResource("/img/if_report_card_2639898.png")));
+		setResizable(false);
 		
 		Random rand = new Random();
 //		int n = rand.nextInt(100000);
@@ -68,6 +75,7 @@ public class Facturar extends JFrame {
 		setTitle("Facturar");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 810, 488);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -220,7 +228,7 @@ public class Facturar extends JFrame {
 		
 		JButton btnSeleccionar = new JButton("Seleccionar");
 		
-		btnSeleccionar.setBounds(401, 15, 89, 23);
+		btnSeleccionar.setBounds(401, 15, 100, 23);
 		PanelFactura.add(btnSeleccionar);
 		
 		JLabel lblTotal = new JLabel("Total:");
