@@ -130,19 +130,24 @@ public class Facturar extends JFrame {
 		JButton btnRegistrar = new JButton("Registrar");
 		btnRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(txtNombre.getText().equals("") && txtApellido.getText().equals("") && txtTelefono.getText().equals("")&& txtDireccion.getText().equals("")) {
-					System.out.println("por favor llene todos los parametros");
-					
-				}else {
-					Cliente aux = new Cliente(txtCedula.getText(),txtNombre.getText(),txtApellido.getText(),Integer.parseInt(txtTelefono.getText()),txtDireccion.getText());
-					complejo.getClientes().add(aux);
-					complejo.setCantcli(complejo.getCantcli()+1);
-					txtNombre.setEnabled(false);
-					txtApellido.setEnabled(false);
-					txtDireccion.setEnabled(false);
-					txtTelefono.setEnabled(false);
-					btnRegistrar.setEnabled(false);
+				try {
+					if(txtNombre.getText().equals("") && txtApellido.getText().equals("") && txtTelefono.getText().equals("")&& txtDireccion.getText().equals("")) {
+						System.out.println("por favor llene todos los parametros");
+						
+					}else {
+						Cliente aux = new Cliente(txtCedula.getText(),txtNombre.getText(),txtApellido.getText(),Integer.parseInt(txtTelefono.getText()),txtDireccion.getText());
+						complejo.getClientes().add(aux);
+						complejo.setCantcli(complejo.getCantcli()+1);
+						txtNombre.setEnabled(false);
+						txtApellido.setEnabled(false);
+						txtDireccion.setEnabled(false);
+						txtTelefono.setEnabled(false);
+						btnRegistrar.setEnabled(false);
+					}
+				}catch(NumberFormatException e1) {
+					System.out.println("por favor introduzca un numero valido");
 				}
+				
 				
 				
 			}
