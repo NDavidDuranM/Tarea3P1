@@ -1,9 +1,5 @@
 package Visual;
 
-import java.awt.BorderLayout;
-import java.util.Random;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -12,8 +8,11 @@ import Logico.Cilindrico;
 import Logico.CilindricoHueco;
 import Logico.Cliente;
 import Logico.ComplejoDeQueso;
+import Logico.EnviarFactura;
 import Logico.Esferico;
 import Logico.Factura;
+import java.net.*;
+import java.io.*;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -24,12 +23,8 @@ import javax.swing.border.TitledBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
-import java.net.Socket;
 
 public class Facturar extends JFrame {
 
@@ -42,6 +37,10 @@ public class Facturar extends JFrame {
 	private JTable TablaQueso;
 	private JTable tableQuesoSeleccionado;
 	private JTextField txtCodigoFactura;
+	
+	private Facturar factura;
+	private File dirfactura;
+
 
 	/**
 	 * Launch the application.
@@ -64,12 +63,25 @@ public class Facturar extends JFrame {
 	 */
 	public Facturar(ComplejoDeQueso complejo) throws IOException {
 		
-//		Random rand = new Random();
-//		int n = rand.nextInt(100000);
+		factura = new Facturar(null);
+		dirfactura =new File("Factura.txt");
+		try {
+			FileInputStream Fi = new FileInputStream(dirfactura);
+			ObjectInputStream input = new ObjectInputStream(Fi);
+			factura =(Facturar) input.readObject();
+			input.close();
+			Fi.close();
+			
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			System.out.println("El archivo no fue encontrado"+e1);
+		} catch(IOException e2) {
+			System.out.println("Error: "+e2);
+		}catch(ClassNotFoundException e3) {
+			System.out.println("Error: "+e3);
+		}
 		
-		//Socket s = new Socket("localholst", 3000);
-		
-		Factura helper=new Factura("0", null, 0, 0);
+		Factura helper = new Factura("0", null, 0, 0);
 		setTitle("Facturar");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 810, 488);
@@ -352,6 +364,22 @@ public class Facturar extends JFrame {
 					helper.setPreciofacturado(helper.preciototal());
 					complejo.getFacturas().add(helper);
 					complejo.setCantfactura(complejo.getCantfactura()+1);
+					
+					try {
+						FileOutputStream Fo=new FileOutputStream(dirfactura);
+						ObjectOutputStream output= new ObjectOutputStream(Fo);
+						output.writeObject(factura);
+						output.close();
+						Fo.close();
+					} catch (FileNotFoundException e1) {
+						// TODO Auto-generated catch block
+						System.out.println("El archivo no fue encontrado"+e1);
+					} catch(IOException e2) {
+						System.out.println("Error: "+e2);
+					}
+					
+					EnviarFactura ea = new EnviarFactura("Factura.txt");
+			        ea.enviarArchivo();
 					
 					dispose();
 				}else {

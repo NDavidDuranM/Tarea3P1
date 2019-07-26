@@ -8,10 +8,16 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Logico.ComplejoDeQueso;
+import Logico.Servidor;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -36,15 +42,16 @@ public class Principal extends JFrame {
 
 	private JPanel contentPane;
 	private ComplejoDeQueso complejo;
-	private File dirqueso;
+	//private File dirqueso;
 	private File dircomplejo;
-	private File dirfactura;
-	private File dircliente;
+	//private File dirfactura;
+	//private File dircliente;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -55,6 +62,7 @@ public class Principal extends JFrame {
 				}
 			}
 		});
+		new Servidor().iniciarServidor();
 	}
 
 	/**
@@ -146,6 +154,7 @@ public class Principal extends JFrame {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				
 			}
 		});
 		mnFactura.add(mntmFacturarCompra);
@@ -214,7 +223,7 @@ public class Principal extends JFrame {
 			
 			@Override
 			public void windowClosing(WindowEvent e) {
-				System.out.println("saliendo///");
+				//System.out.println("saliendo///");
 				try {
 					FileOutputStream Fo=new FileOutputStream(dircomplejo);
 					ObjectOutputStream output= new ObjectOutputStream(Fo);
@@ -229,7 +238,5 @@ public class Principal extends JFrame {
 				}
 			}
 		});
-		
-		
 	}
 }
