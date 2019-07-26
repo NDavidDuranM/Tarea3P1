@@ -28,6 +28,8 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.net.Socket;
 
 public class Facturar extends JFrame {
 
@@ -60,10 +62,13 @@ public class Facturar extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Facturar(ComplejoDeQueso complejo) {
+	public Facturar(ComplejoDeQueso complejo) throws IOException {
 		
 //		Random rand = new Random();
 //		int n = rand.nextInt(100000);
+		
+		//Socket s = new Socket("localholst", 3000);
+		
 		Factura helper=new Factura("0", null, 0, 0);
 		setTitle("Facturar");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

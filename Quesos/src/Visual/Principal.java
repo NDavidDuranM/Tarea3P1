@@ -8,7 +8,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Logico.ComplejoDeQueso;
-
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -20,6 +19,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.awt.event.ActionEvent;
 import javax.swing.event.MenuListener;
 import javax.swing.event.MenuEvent;
@@ -81,7 +82,6 @@ public class Principal extends JFrame {
 		}
 		
 		setTitle("Complejo de Quesos");
-		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		setLocationRelativeTo(null);
@@ -138,8 +138,14 @@ public class Principal extends JFrame {
 		mntmFacturarCompra.setEnabled(false);
 		mntmFacturarCompra.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Facturar ventana= new Facturar(complejo);
-				ventana.setVisible(true);
+				Facturar ventana;
+				try {
+					ventana = new Facturar(complejo);
+					ventana.setVisible(true);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		mnFactura.add(mntmFacturarCompra);
