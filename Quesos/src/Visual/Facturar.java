@@ -131,7 +131,7 @@ public class Facturar extends JFrame {
 		btnRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if(txtNombre.getText().equals("") && txtApellido.getText().equals("") && txtTelefono.getText().equals("")&& txtDireccion.getText().equals("")) {
+					if(txtNombre.getText().equals("") || txtApellido.getText().equals("") || txtTelefono.getText().equals("")|| txtDireccion.getText().equals("")) {
 						System.out.println("por favor llene todos los parametros");
 						
 					}else {
