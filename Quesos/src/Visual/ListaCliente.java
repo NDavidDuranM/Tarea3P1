@@ -86,3 +86,4 @@ public class ListaCliente extends JFrame {
 		scrollPane.setViewportView(table);
 	}
 }
+
