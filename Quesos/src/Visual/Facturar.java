@@ -135,7 +135,7 @@ public class Facturar extends JFrame {
 						System.out.println("por favor llene todos los parametros");
 						
 					}else {
-						Cliente aux = new Cliente(txtCedula.getText(),txtNombre.getText(),txtApellido.getText(),Integer.parseInt(txtTelefono.getText()),txtDireccion.getText());
+						Cliente aux = new Cliente(txtCedula.getText(),txtNombre.getText(),txtApellido.getText(),Long.parseLong(txtTelefono.getText()),txtDireccion.getText());
 						complejo.getClientes().add(aux);
 						complejo.setCantcli(complejo.getCantcli()+1);
 						txtNombre.setEnabled(false);
@@ -271,7 +271,7 @@ public class Facturar extends JFrame {
 					txtNombre.setText(complejo.BuscarClienteBycode(txtCedula.getText()).getNombre());
 					txtApellido.setText(complejo.BuscarClienteBycode(txtCedula.getText()).getApellido());
 					txtDireccion.setText(complejo.BuscarClienteBycode(txtCedula.getText()).getDireccion());
-					txtTelefono.setText(Integer.toString((complejo.BuscarClienteBycode(txtCedula.getText()).getTelefono())));
+					txtTelefono.setText(Long.toString((complejo.BuscarClienteBycode(txtCedula.getText()).getTelefono())));
 					
 				}
 				else {
@@ -310,7 +310,7 @@ public class Facturar extends JFrame {
 					txtNombre.setText(complejo.BuscarClienteBycode(txtCedula.getText()).getNombre());
 					txtApellido.setText(complejo.BuscarClienteBycode(txtCedula.getText()).getApellido());
 					txtDireccion.setText(complejo.BuscarClienteBycode(txtCedula.getText()).getDireccion());
-					txtTelefono.setText(Integer.toString((complejo.BuscarClienteBycode(txtCedula.getText()).getTelefono())));
+					txtTelefono.setText(Long.toString((complejo.BuscarClienteBycode(txtCedula.getText()).getTelefono())));
 					
 				}
 				else {

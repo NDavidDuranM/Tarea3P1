@@ -7,10 +7,10 @@ public class Cliente implements Serializable {
 	private String cedula;
 	private String nombre;
 	private String apellido;
-	private int telefono;
+	private long telefono;
 	private String direccion;
 	
-	public Cliente(String cedula, String nombre, String apellido, int telefono, String direccion) {
+	public Cliente(String cedula, String nombre, String apellido, long telefono, String direccion) {
 		super();
 		this.cedula = cedula;
 		this.nombre = nombre;
@@ -36,10 +36,10 @@ public class Cliente implements Serializable {
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
 	}
-	public int getTelefono() {
+	public long getTelefono() {
 		return telefono;
 	}
-	public void setTelefono(int telefono) {
+	public void setTelefono(long telefono) {
 		this.telefono = telefono;
 	}
 	public String getDireccion() {
