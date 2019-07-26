@@ -28,14 +28,9 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.Toolkit;
 
 public class Facturar extends JFrame {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtCedula;
 	private JTextField txtNombre;
@@ -66,16 +61,13 @@ public class Facturar extends JFrame {
 	 * Create the frame.
 	 */
 	public Facturar(ComplejoDeQueso complejo) {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Facturar.class.getResource("/img/if_report_card_2639898.png")));
-		setResizable(false);
 		
-		Random rand = new Random();
+//		Random rand = new Random();
 //		int n = rand.nextInt(100000);
 		Factura helper=new Factura("0", null, 0, 0);
 		setTitle("Facturar");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 810, 488);
-		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -138,14 +130,21 @@ public class Facturar extends JFrame {
 		JButton btnRegistrar = new JButton("Registrar");
 		btnRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Cliente aux = new Cliente(txtCedula.getText(),txtNombre.getText(),txtApellido.getText(),Integer.parseInt(txtTelefono.getText()),txtDireccion.getText());
-				complejo.getClientes().add(aux);
-				complejo.setCantcli(complejo.getCantcli()+1);
-				txtNombre.setEnabled(false);
-				txtApellido.setEnabled(false);
-				txtDireccion.setEnabled(false);
-				txtTelefono.setEnabled(false);
-				btnRegistrar.setEnabled(false);
+				if(txtNombre.getText().equals("") && txtApellido.getText().equals("") && txtTelefono.getText().equals("")&& txtDireccion.getText().equals("")) {
+					System.out.println("por favor llene todos los parametros");
+					
+				}else {
+					Cliente aux = new Cliente(txtCedula.getText(),txtNombre.getText(),txtApellido.getText(),Integer.parseInt(txtTelefono.getText()),txtDireccion.getText());
+					complejo.getClientes().add(aux);
+					complejo.setCantcli(complejo.getCantcli()+1);
+					txtNombre.setEnabled(false);
+					txtApellido.setEnabled(false);
+					txtDireccion.setEnabled(false);
+					txtTelefono.setEnabled(false);
+					btnRegistrar.setEnabled(false);
+				}
+				
+				
 			}
 		});
 		btnRegistrar.setEnabled(false);
@@ -228,7 +227,7 @@ public class Facturar extends JFrame {
 		
 		JButton btnSeleccionar = new JButton("Seleccionar");
 		
-		btnSeleccionar.setBounds(401, 15, 100, 23);
+		btnSeleccionar.setBounds(401, 15, 89, 23);
 		PanelFactura.add(btnSeleccionar);
 		
 		JLabel lblTotal = new JLabel("Total:");
@@ -240,18 +239,6 @@ public class Facturar extends JFrame {
 		PanelFactura.add(labelpreciototal);
 		
 		JButton btnFacturar = new JButton("Facturar");
-		btnFacturar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				helper.setCodigo(txtCodigoFactura.getText());
-				helper.setCliente(complejo.BuscarClienteBycode(txtCedula.getText()));
-				helper.setPreciofacturado(helper.preciototal());
-				complejo.getFacturas().add(helper);
-				complejo.setCantfactura(complejo.getCantfactura()+1);
-				
-				dispose();
-			}
-		});
 		btnFacturar.setBounds(675, 15, 89, 23);
 		PanelFactura.add(btnFacturar);
 		
@@ -294,6 +281,17 @@ public class Facturar extends JFrame {
 					txtTelefono.setText("");
 					
 				}
+				if(txtCedula.getText().equals("")) {
+					txtNombre.setEnabled(false);
+					txtApellido.setEnabled(false);
+					txtDireccion.setEnabled(false);
+					txtTelefono.setEnabled(false);
+					btnRegistrar.setEnabled(false);
+					txtNombre.setText("");
+					txtApellido.setText("");
+					txtDireccion.setText("");
+					txtTelefono.setText("");
+				}
 			}
 		});
 		txtCedula.addActionListener(new ActionListener() {
@@ -335,38 +333,56 @@ public class Facturar extends JFrame {
 				}
 			}
 		});
+		btnFacturar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(helper.getCantqueso()>0 && complejo.existecliente(txtCedula.getText())==true ) {
+					helper.setCodigo(txtCodigoFactura.getText());
+					helper.setCliente(complejo.BuscarClienteBycode(txtCedula.getText()));
+					helper.setPreciofacturado(helper.preciototal());
+					complejo.getFacturas().add(helper);
+					complejo.setCantfactura(complejo.getCantfactura()+1);
+					
+					dispose();
+				}else {
+					System.out.println("Seleccione parametros correctos para la factura");
+				}
+				
+			}
+		});
 		btnSeleccionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				if(helper) {
-//					
-//				}
-				helper.getQuesos().add(complejo.BuscarQuesoBycode(TablaQueso.getValueAt(TablaQueso.getSelectedRow(), 1).toString()));
-				helper.setCantqueso(helper.getCantqueso()+1);
-				
-				labelpreciototal.setText(Double.toString(helper.preciototal()));
-				int auxcountQuesoSeleccionado=0;
-				for(int i =0; i<helper.getCantqueso();i++,auxcountQuesoSeleccionado++) {
-					if(complejo.getQuesos().get(i)instanceof Esferico) {
-						QuesoHelperSelecionado[auxcountQuesoSeleccionado][0]="Queso Esferico";
-					}
-					if(complejo.getQuesos().get(i)instanceof Cilindrico) { 
-						QuesoHelperSelecionado[auxcountQuesoSeleccionado][0]="Queso Cilindrico";
-					}
-					if(complejo.getQuesos().get(i)instanceof CilindricoHueco) { 
-						QuesoHelperSelecionado[auxcountQuesoSeleccionado][0]="Queso Cilindrico con Hueco";
-					}
-					QuesoHelperSelecionado[auxcountQuesoSeleccionado][1]=helper.getQuesos().get(i).volumen();
-					QuesoHelperSelecionado[auxcountQuesoSeleccionado][2]=helper.getQuesos().get(i).preciototal();
+				if(helper.existequeso(TablaQueso.getValueAt(TablaQueso.getSelectedRow(), 1).toString())==true) {
+					System.out.println("Este queso ya fue seleccionado");
+				}else {
+					helper.getQuesos().add(complejo.BuscarQuesoBycode(TablaQueso.getValueAt(TablaQueso.getSelectedRow(), 1).toString()));
+					helper.setCantqueso(helper.getCantqueso()+1);
 					
-					
-					
+					labelpreciototal.setText(Double.toString(helper.preciototal()));
+					int auxcountQuesoSeleccionado=0;
+					for(int i =0; i<helper.getCantqueso();i++,auxcountQuesoSeleccionado++) {
+						if(complejo.getQuesos().get(i)instanceof Esferico) {
+							QuesoHelperSelecionado[auxcountQuesoSeleccionado][0]="Queso Esferico";
+						}
+						if(complejo.getQuesos().get(i)instanceof Cilindrico) { 
+							QuesoHelperSelecionado[auxcountQuesoSeleccionado][0]="Queso Cilindrico";
+						}
+						if(complejo.getQuesos().get(i)instanceof CilindricoHueco) { 
+							QuesoHelperSelecionado[auxcountQuesoSeleccionado][0]="Queso Cilindrico con Hueco";
+						}
+						QuesoHelperSelecionado[auxcountQuesoSeleccionado][1]=helper.getQuesos().get(i).volumen();
+						QuesoHelperSelecionado[auxcountQuesoSeleccionado][2]=helper.getQuesos().get(i).preciototal();
+						
+						
+						
+					}
+					tableQuesoSeleccionado.setModel(new DefaultTableModel(
+							QuesoHelperSelecionado,
+						new String[] {
+							"Tipo", "Volumen", "Precio"
+						}
+					));
 				}
-				tableQuesoSeleccionado.setModel(new DefaultTableModel(
-						QuesoHelperSelecionado,
-					new String[] {
-						"Tipo", "Volumen", "Precio"
-					}
-				));
+				
 			}
 		});
 	}

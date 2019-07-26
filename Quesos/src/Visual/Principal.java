@@ -89,13 +89,13 @@ public class Principal extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		JMenu mnClientes = new JMenu("Registro");
-		mnClientes.setIcon(new ImageIcon(Principal.class.getResource("/img/if_book_sans_add_103401.png")));
-		menuBar.add(mnClientes);
+		JMenu mnRegistro = new JMenu("Registro");
+		mnRegistro.setIcon(new ImageIcon(Principal.class.getResource("/img/if_book_sans_add_103401.png")));
+		menuBar.add(mnRegistro);
 		
 		JMenuItem mntmHacerQuesos = new JMenuItem("Quesos");
 		mntmHacerQuesos.setIcon(new ImageIcon(Principal.class.getResource("/img/if__q_2559784.png")));
-		mnClientes.add(mntmHacerQuesos);
+		mnRegistro.add(mntmHacerQuesos);
 		mntmHacerQuesos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				HacerQueso ventana = new HacerQueso(complejo);
@@ -103,9 +103,9 @@ public class Principal extends JFrame {
 			}
 		});
 		
-		JMenu mnQuesos = new JMenu("Listar");
-		mnQuesos.setIcon(new ImageIcon(Principal.class.getResource("/img/if_list_103613.png")));
-		menuBar.add(mnQuesos);
+		JMenu mnListar = new JMenu("Listar");
+		mnListar.setIcon(new ImageIcon(Principal.class.getResource("/img/if_list_103613.png")));
+		menuBar.add(mnListar);
 		
 		JMenuItem mntmVerQuesos = new JMenuItem("Quesos");
 		mntmVerQuesos.setIcon(new ImageIcon(Principal.class.getResource("/img/if__q_2559784.png")));
@@ -119,7 +119,7 @@ public class Principal extends JFrame {
 		
 		JMenuItem mntmVerListaDe = new JMenuItem("Clientes");
 		mntmVerListaDe.setIcon(new ImageIcon(Principal.class.getResource("/img/if_88_171447.png")));
-		mnQuesos.add(mntmVerListaDe);
+		mnListar.add(mntmVerListaDe);
 		mntmVerListaDe.setEnabled(false);
 		mntmVerListaDe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -127,7 +127,7 @@ public class Principal extends JFrame {
 				ventana.setVisible(true);
 			}
 		});
-		mnQuesos.add(mntmVerQuesos);
+		mnListar.add(mntmVerQuesos);
 		
 		JMenu mnFactura = new JMenu("Factura");
 		mnFactura.setIcon(new ImageIcon(Principal.class.getResource("/img/if_report_card_2639898.png")));
@@ -175,7 +175,7 @@ public class Principal extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		mnClientes.addMenuListener(new MenuListener() {
+		mnRegistro.addMenuListener(new MenuListener() {
 			public void menuCanceled(MenuEvent e) {
 			}
 			public void menuDeselected(MenuEvent e) {
@@ -187,7 +187,7 @@ public class Principal extends JFrame {
 				
 			}
 		});
-		mnQuesos.addMenuListener(new MenuListener() {
+		mnListar.addMenuListener(new MenuListener() {
 			public void menuCanceled(MenuEvent e) {
 			}
 			public void menuDeselected(MenuEvent e) {
@@ -195,6 +195,9 @@ public class Principal extends JFrame {
 			public void menuSelected(MenuEvent e) {
 				if(complejo.getCantqueso()>0) {
 					mntmVerQuesos.setEnabled(true);	
+				}
+				if (complejo.getCantcli()>0) {
+					mntmVerListaDe.setEnabled(true);
 				}
 				
 			}

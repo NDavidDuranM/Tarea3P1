@@ -20,6 +20,8 @@ import javax.swing.JTextField;
 import javax.swing.JSpinner;
 import javax.swing.JButton;
 import java.awt.event.MouseMotionAdapter;
+import java.io.IOException;
+import java.util.InputMismatchException;
 import java.awt.event.MouseEvent;
 import javax.swing.SpinnerNumberModel;
 import java.awt.event.KeyAdapter;
@@ -145,35 +147,42 @@ public class HacerQueso extends JFrame {
 		JButton btnAgregar = new JButton("Agregar");
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				if (complejo.existequeso(txtCodigo.getText())==false) {
-					
-					if(rdbtnEsferico.isSelected()==true) {
-						Esferico aux =new Esferico(Double.parseDouble(txtPrecioBase.getText()), Double.parseDouble(txtPrecioUnitario.getText()), Double.parseDouble(spnRadio.getValue().toString()), txtCodigo.getText());
-						complejo.getQuesos().add(aux);
-						complejo.setCantqueso(complejo.getCantqueso()+1);
-					
+				try{
+					if (complejo.existequeso(txtCodigo.getText())==false) {
+						if(txtCodigo.getText().equals("") && txtPrecioBase.getText().equals("") && txtPrecioUnitario.getText().equals("")){
+							System.out.println("Por Favor LLenar los valores correctamente");
+						}else {
+							if(rdbtnEsferico.isSelected()==true) {
+								Esferico aux =new Esferico(Double.parseDouble(txtPrecioBase.getText()), Double.parseDouble(txtPrecioUnitario.getText()), Double.parseDouble(spnRadio.getValue().toString()), txtCodigo.getText());
+								complejo.getQuesos().add(aux);
+								complejo.setCantqueso(complejo.getCantqueso()+1);
+							
+							}
+							if(rdbtnCilindricoHueco.isSelected()==true) {
+								CilindricoHueco aux =new CilindricoHueco(Double.parseDouble(txtPrecioBase.getText()), Double.parseDouble(txtPrecioUnitario.getText()), Double.parseDouble(spnRadio.getValue().toString()),Double.parseDouble(spnLongitud.getValue().toString()),Double.parseDouble(spnRadioInterno.getValue().toString()), txtCodigo.getText());
+								complejo.getQuesos().add(aux);
+								complejo.setCantqueso(complejo.getCantqueso()+1);
+							}
+							if(rdbtnCilindrico.isSelected()==true) {
+								Cilindrico aux =new Cilindrico(Double.parseDouble(txtPrecioBase.getText()), Double.parseDouble(txtPrecioUnitario.getText()), Double.parseDouble(spnRadio.getValue().toString()),Double.parseDouble(spnLongitud.getValue().toString()), txtCodigo.getText());
+								complejo.getQuesos().add(aux);
+								complejo.setCantqueso(complejo.getCantqueso()+1);
+							}
+						}
+					}else {
+						System.out.println("Ya existe un queso con este codigo");
 					}
-					if(rdbtnCilindricoHueco.isSelected()==true) {
-						CilindricoHueco aux =new CilindricoHueco(Double.parseDouble(txtPrecioBase.getText()), Double.parseDouble(txtPrecioUnitario.getText()), Double.parseDouble(spnRadio.getValue().toString()),Double.parseDouble(spnLongitud.getValue().toString()),Double.parseDouble(spnRadioInterno.getValue().toString()), txtCodigo.getText());
-						complejo.getQuesos().add(aux);
-						complejo.setCantqueso(complejo.getCantqueso()+1);
-					}
-					if(rdbtnCilindrico.isSelected()==true) {
-						Cilindrico aux =new Cilindrico(Double.parseDouble(txtPrecioBase.getText()), Double.parseDouble(txtPrecioUnitario.getText()), Double.parseDouble(spnRadio.getValue().toString()),Double.parseDouble(spnLongitud.getValue().toString()), txtCodigo.getText());
-						complejo.getQuesos().add(aux);
-						complejo.setCantqueso(complejo.getCantqueso()+1);
-					}
+										
+					txtCodigo.setText("");
+					txtPrecioBase.setText("");
+					txtPrecioUnitario.setText("");
+				}catch(InputMismatchException e2) {
+					System.out.println("Introdusca valores validos");
 					
-				}else {
-					System.out.println("Ya existe un queso con este codigo");
+				}catch(NumberFormatException e3) {
+					System.out.println("Introdusca valores validos");
 				}
 				
-				
-				
-				txtCodigo.setText("");
-				txtPrecioBase.setText("");
-				txtPrecioUnitario.setText("");
 			}
 		});
 		btnAgregar.setBounds(304, 204, 89, 23);
