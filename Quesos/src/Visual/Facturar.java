@@ -240,6 +240,7 @@ public class Facturar extends JFrame {
 				helper.setPreciofacturado(helper.preciototal());
 				complejo.getFacturas().add(helper);
 				complejo.setCantfactura(complejo.getCantfactura()+1);
+				
 				dispose();
 			}
 		});
@@ -250,7 +251,7 @@ public class Facturar extends JFrame {
 		if(complejo.getCantfactura()==0){
 			txtCodigoFactura.setText("0");
 		}else {
-			txtCodigoFactura.setText(complejo.getFacturas().get(complejo.getFacturas().size()).getCodigo());
+			txtCodigoFactura.setText(Integer.toString(Integer.parseInt(complejo.getFacturas().get(complejo.getCantfactura()-1).getCodigo())+1));
 		}
 		txtCodigoFactura.setEnabled(false);
 		txtCodigoFactura.setBounds(511, 15, 141, 23);
