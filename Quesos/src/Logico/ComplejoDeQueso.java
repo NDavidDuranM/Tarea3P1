@@ -1,8 +1,9 @@
 package Logico;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ComplejoDeQueso {
+public class ComplejoDeQueso implements Serializable {
 
 	private ArrayList<Cliente> clientes;
 	private int cantcli;

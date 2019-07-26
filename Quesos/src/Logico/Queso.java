@@ -1,6 +1,8 @@
 package Logico;
 
-public abstract class Queso {
+import java.io.Serializable;
+
+public abstract class Queso implements Serializable {
 	
 	protected String codigo;
 	protected double preciobase;

@@ -13,14 +13,28 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.awt.event.ActionEvent;
 import javax.swing.event.MenuListener;
 import javax.swing.event.MenuEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowStateListener;
 
 public class Principal extends JFrame {
 
 	private JPanel contentPane;
 	private ComplejoDeQueso complejo;
+	private File dirqueso;
+	private File dircomplejo;
+	private File dirfactura;
+	private File dircliente;
 
 	/**
 	 * Launch the application.
@@ -42,7 +56,25 @@ public class Principal extends JFrame {
 	 * Create the frame.
 	 */
 	public Principal() {
+				
 		complejo = new ComplejoDeQueso(0, 0, 0);
+		dircomplejo =new File("DataComplejo.txt");
+		try {
+			FileInputStream Fi = new FileInputStream(dircomplejo);
+			ObjectInputStream input = new ObjectInputStream(Fi);
+			complejo=(ComplejoDeQueso) input.readObject();
+			input.close();
+			Fi.close();
+			
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			System.out.println("El archivo no fue encontrado"+e1);
+		} catch(IOException e2) {
+			System.out.println("Error: "+e2);
+		}catch(ClassNotFoundException e3) {
+			System.out.println("Error: "+e3);
+		}
+		
 		setTitle("Complejo de Quesos");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -153,5 +185,27 @@ public class Principal extends JFrame {
 				
 			}
 		});
+		
+		addWindowListener(new WindowAdapter() {
+			
+			@Override
+			public void windowClosing(WindowEvent e) {
+				System.out.println("saliendo///");
+				try {
+					FileOutputStream Fo=new FileOutputStream(dircomplejo);
+					ObjectOutputStream output= new ObjectOutputStream(Fo);
+					output.writeObject(complejo);
+					output.close();
+					Fo.close();
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					System.out.println("El archivo no fue encontrado"+e1);
+				} catch(IOException e2) {
+					System.out.println("Error: "+e2);
+				}
+			}
+		});
+		
+		
 	}
 }

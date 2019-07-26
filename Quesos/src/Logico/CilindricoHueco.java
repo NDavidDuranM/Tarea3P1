@@ -1,6 +1,8 @@
 package Logico;
 
-public class CilindricoHueco extends Cilindrico {
+import java.io.Serializable;
+
+public class CilindricoHueco extends Cilindrico implements Serializable {
 
 	private double radioInterno;
 	

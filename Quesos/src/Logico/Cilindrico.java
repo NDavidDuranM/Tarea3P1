@@ -1,6 +1,8 @@
 package Logico;
 
-public class Cilindrico extends Queso {
+import java.io.Serializable;
+
+public class Cilindrico extends Queso implements Serializable {
 
 	protected double longitud;
 

@@ -1,6 +1,8 @@
 package Logico;
 
-public class Esferico extends Queso {
+import java.io.Serializable;
+
+public class Esferico extends Queso implements Serializable {
 
 
 	public Esferico(double preciobase, double preciounitario, double radio,String codigo) {

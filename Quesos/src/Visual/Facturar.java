@@ -66,7 +66,7 @@ public class Facturar extends JFrame {
 //		int n = rand.nextInt(100000);
 		Factura helper=new Factura("0", null, 0, 0);
 		setTitle("Facturar");
-//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 810, 488);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
