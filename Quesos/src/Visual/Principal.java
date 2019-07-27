@@ -8,14 +8,13 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Logico.ComplejoDeQueso;
-import Logico.Servidor;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -27,6 +26,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Scanner;
 import java.awt.event.ActionEvent;
 import javax.swing.event.MenuListener;
 import javax.swing.event.MenuEvent;
@@ -37,6 +37,8 @@ import java.awt.SystemColor;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
 import java.awt.Color;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseEvent;
 
 public class Principal extends JFrame {
 
@@ -46,10 +48,15 @@ public class Principal extends JFrame {
 	private File dircomplejo;
 	//private File dirfactura;
 	//private File dircliente;
+	private String HOST="192.168.43.112";
+	final int PUERTO=4400;
+	private Socket SckCliente;
+    private DataInputStream dis;
+    private DataOutputStream dos;
 
 	/**
 	 * Launch the application.
-	 */
+	 *
 	public static void main(String[] args) throws IOException {
 		
 		EventQueue.invokeLater(new Runnable() {
@@ -62,35 +69,59 @@ public class Principal extends JFrame {
 				}
 			}
 		});
-		Servidor eo = new Servidor();
-		eo.RecibirArchivo();
-		eo.iniciarServidor();
-		
+
 	}
 
 	/**
 	 * Create the frame.
 	 */
-	public Principal() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/img/if_list-alt_173045.png")));
+	public Principal(String direccionHOST) {
 				
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/img/if_list-alt_173045.png")));
+		HOST=direccionHOST;
 		complejo = new ComplejoDeQueso(0, 0, 0);
-		dircomplejo =new File("DataComplejo.txt");
 		try {
-			FileInputStream Fi = new FileInputStream(dircomplejo);
-			ObjectInputStream input = new ObjectInputStream(Fi);
-			complejo=(ComplejoDeQueso) input.readObject();
-			input.close();
-			Fi.close();
+		
+			SckCliente =new Socket(HOST,PUERTO);
+			System.out.println("ya me conecte");
+			dos= new DataOutputStream(SckCliente.getOutputStream());
 			
-		} catch (FileNotFoundException e1) {
+			dos.writeUTF("Peticion de datos");
+			System.out.println("dick new55555");
+			dis = new DataInputStream(SckCliente.getInputStream());
+			ObjectInputStream ois = new ObjectInputStream(dis);
+			complejo = (ComplejoDeQueso) ois.readObject();
+			dos.close();
+			dis.close();
+			SckCliente.close();
+		
+		}catch(IOException e1) {
+			System.out.println("Error: "+e1);
+			dispose();
+		} catch (ClassNotFoundException e2) {
 			// TODO Auto-generated catch block
-			System.out.println("El archivo no fue encontrado"+e1);
-		} catch(IOException e2) {
-			System.out.println("Error: "+e2);
-		}catch(ClassNotFoundException e3) {
-			System.out.println("Error: "+e3);
-		}
+			e2.printStackTrace();
+		} 
+		
+		
+		
+		
+//		dircomplejo =new File("DataComplejo.txt");
+//		try {
+//			FileInputStream Fi = new FileInputStream(dircomplejo);
+//			ObjectInputStream input = new ObjectInputStream(Fi);
+//			complejo=(ComplejoDeQueso) input.readObject();
+//			input.close();
+//			Fi.close();
+//			
+//		} catch (FileNotFoundException e1) {
+//			// TODO Auto-generated catch block
+//			System.out.println("El archivo no fue encontrado"+e1);
+//		} catch(IOException e2) {
+//			System.out.println("Error: "+e2);
+//		}catch(ClassNotFoundException e3) {
+//			System.out.println("Error: "+e3);
+//		}
 		
 		setTitle("Complejo de Quesos");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -147,20 +178,18 @@ public class Principal extends JFrame {
 		JMenuItem mntmFacturarCompra = new JMenuItem("Crear factura");
 		mntmFacturarCompra.setIcon(new ImageIcon(Principal.class.getResource("/img/if_plus_103681.png")));
 		mntmFacturarCompra.setEnabled(false);
+		mnFactura.add(mntmFacturarCompra);
+		
+		
 		mntmFacturarCompra.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Facturar ventana;
-				try {
-					ventana = new Facturar(complejo);
-					ventana.setVisible(true);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+			
+				Facturar ventana = new Facturar(complejo);
+				ventana.setVisible(true);
+				
 				
 			}
 		});
-		mnFactura.add(mntmFacturarCompra);
 		
 		JMenuItem mntmVerFacturasRealizadas = new JMenuItem("Facturas");
 		mntmVerFacturasRealizadas.setIcon(new ImageIcon(Principal.class.getResource("/img/if_090_Notes_183217.png")));
@@ -226,20 +255,86 @@ public class Principal extends JFrame {
 			
 			@Override
 			public void windowClosing(WindowEvent e) {
-				//System.out.println("saliendo///");
+//				//System.out.println("saliendo///");
+//				try {
+//					FileOutputStream Fo=new FileOutputStream(dircomplejo);
+//					ObjectOutputStream output= new ObjectOutputStream(Fo);
+//					output.writeObject(complejo);
+//					output.close();
+//					Fo.close();
+//				} catch (FileNotFoundException e1) {
+//					// TODO Auto-generated catch block
+//					System.out.println("El archivo no fue encontrado"+e1);
+//				} catch(IOException e2) {
+//					System.out.println("Error: "+e2);
+//				}
+		
 				try {
-					FileOutputStream Fo=new FileOutputStream(dircomplejo);
-					ObjectOutputStream output= new ObjectOutputStream(Fo);
-					output.writeObject(complejo);
-					output.close();
-					Fo.close();
-				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
-					System.out.println("El archivo no fue encontrado"+e1);
-				} catch(IOException e2) {
-					System.out.println("Error: "+e2);
+					System.out.println("dipp");
+					SckCliente =new Socket(HOST,PUERTO);
+					
+					dos= new DataOutputStream(SckCliente.getOutputStream());
+					dos.writeUTF("Datos Nuevos");
+					ObjectOutputStream oot =new ObjectOutputStream(dos);
+					oot.writeObject(complejo);
+					System.out.println("dipper");
+					oot.close();
+					System.out.println("even more");
+					dos.close();
+					System.out.println("dipp");
+				}catch(IOException e1) {
+					System.out.println("Error: "+e1);
 				}
+				
+				System.out.println("calm down");
 			}
 		});
+//		contentPane.addMouseMotionListener(new MouseMotionAdapter() {
+//			@Override
+//			public void mouseMoved(MouseEvent e) {
+//				try {
+//					
+//					SckCliente =new Socket(HOST,PUERTO);
+//					
+//					dos= new DataOutputStream(SckCliente.getOutputStream());
+//					dos.writeUTF("Datos Nuevos");
+//					
+//					ObjectOutputStream oot =new ObjectOutputStream(dos);
+//					oot.writeObject(complejo);
+//					
+//					oot.close();
+//					
+//					dos.close();
+//					
+//				}catch(IOException e1) {
+//					System.out.println("Error: "+e1);
+//				}
+//				
+//				
+//			}
+//		});
+		
+//		addMouseMotionListener(new MouseMotionAdapter() {
+//			@Override
+//			public void mouseMoved(MouseEvent e) {
+//				try {
+//					
+//					SckCliente =new Socket(HOST,PUERTO);
+//					
+//					dos= new DataOutputStream(SckCliente.getOutputStream());
+//					dos.writeUTF("Datos Nuevos");
+//					
+//					ObjectOutputStream oot =new ObjectOutputStream(dos);
+//					oot.writeObject(complejo);
+//					
+//					oot.close();
+//					
+//					dos.close();
+//					
+//				}catch(IOException e1) {
+//					System.out.println("Error: "+e1);
+//				}
+//			}
+//		});
 	}
 }

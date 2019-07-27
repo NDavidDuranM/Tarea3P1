@@ -11,8 +11,6 @@ import Logico.ComplejoDeQueso;
 import Logico.EnviarFactura;
 import Logico.Esferico;
 import Logico.Factura;
-import Logico.Servidor;
-
 import java.net.*;
 import java.io.*;
 
@@ -39,9 +37,6 @@ public class Facturar extends JFrame {
 	private JTable TablaQueso;
 	private JTable tableQuesoSeleccionado;
 	private JTextField txtCodigoFactura;
-	
-	private Factura factura;
-	private File dirfactura;
 
 
 	/**
@@ -63,25 +58,7 @@ public class Facturar extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Facturar(ComplejoDeQueso complejo) throws IOException {
-		
-		factura = new Factura("",null,0,0);
-		dirfactura =new File("Factura.txt");
-		try {
-			FileInputStream Fi = new FileInputStream(dirfactura);
-			ObjectInputStream input = new ObjectInputStream(Fi);
-			factura =(Factura) input.readObject();
-			input.close();
-			Fi.close();
-			
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			System.out.println("El archivo no fue encontrado"+e1);
-		} catch(IOException e2) {
-			System.out.println("Error: "+e2);
-		}catch(ClassNotFoundException e3) {
-			System.out.println("Error: "+e3);
-		}
+	public Facturar(ComplejoDeQueso complejo) {
 		
 		Factura helper = new Factura("0", null, 0, 0);
 		setTitle("Facturar");
@@ -367,22 +344,6 @@ public class Facturar extends JFrame {
 					complejo.getFacturas().add(helper);
 					complejo.setCantfactura(complejo.getCantfactura()+1);
 					
-					try {
-						FileOutputStream Fo=new FileOutputStream(dirfactura);
-						ObjectOutputStream output= new ObjectOutputStream(Fo);
-						output.writeObject(factura);
-						output.close();
-						Fo.close();
-					} catch (FileNotFoundException e1) {
-						// TODO Auto-generated catch block
-						System.out.println("El archivo no fue encontrado"+e1);
-					} catch(IOException e2) {
-						System.out.println("Error: "+e2);
-					}
-					
-					EnviarFactura ea = new EnviarFactura("Factura.txt");
-			        ea.enviarArchivo();
-			     
 					dispose();
 				}else {
 					System.out.println("Seleccione parametros correctos para la factura");
