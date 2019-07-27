@@ -8,9 +8,9 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Servidor {
+public class Servidor extends Thread{
 
-    private ServerSocket servidor = null;
+    private ServerSocket servidor;
 	
 	public void RecibirArchivo( ) throws IOException {
         // Creamos socket servidor escuchando en el mismo puerto donde se comunica el cliente
@@ -38,7 +38,7 @@ public class Servidor {
 	      
 	             // Creamos flujo de salida, este flujo nos sirve para 
 	             // indicar donde guardaremos el archivo
-	             FileOutputStream fos = new FileOutputStream( "C:\\"+nombreArchivo );
+	             FileOutputStream fos = new FileOutputStream( "Servidor" + nombreArchivo );
 	             BufferedOutputStream out = new BufferedOutputStream( fos );
 	             BufferedInputStream in = new BufferedInputStream( cliente.getInputStream() );
 	
@@ -59,9 +59,10 @@ public class Servidor {
 	             out.close(); 
 	             cliente.close();
 	
-	             System.out.println( "Archivo Recibido "+nombreArchivo );
+	             System.out.println( "Archivo Recibido " + nombreArchivo );
+	             
 	         } catch( Exception e ) {
-	            System.out.println( "Recibir: "+e.toString() ); 
+	            //System.out.println( "Recibir:" + e.toString() ); 
 	         }
 	  } 
 	}

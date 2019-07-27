@@ -11,6 +11,8 @@ import Logico.ComplejoDeQueso;
 import Logico.EnviarFactura;
 import Logico.Esferico;
 import Logico.Factura;
+import Logico.Servidor;
+
 import java.net.*;
 import java.io.*;
 
@@ -380,7 +382,7 @@ public class Facturar extends JFrame {
 					
 					EnviarFactura ea = new EnviarFactura("Factura.txt");
 			        ea.enviarArchivo();
-					
+			     
 					dispose();
 				}else {
 					System.out.println("Seleccione parametros correctos para la factura");

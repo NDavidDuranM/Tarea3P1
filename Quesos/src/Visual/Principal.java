@@ -62,8 +62,9 @@ public class Principal extends JFrame {
 				}
 			}
 		});
-		new Servidor().RecibirArchivo();;
-		new Servidor().iniciarServidor();
+		Servidor eo = new Servidor();
+		eo.RecibirArchivo();
+		eo.iniciarServidor();
 		
 	}
 

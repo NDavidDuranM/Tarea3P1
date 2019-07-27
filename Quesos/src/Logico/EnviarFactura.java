@@ -3,8 +3,7 @@ package Logico;
 import java.net.*;
 import java.io.*;
 
-public class EnviarFactura
-{
+public class EnviarFactura extends Thread {
      private String nombreArchivo = "";
      
      public EnviarFactura( String nombreArchivo ){
@@ -14,11 +13,11 @@ public class EnviarFactura
      public void enviarArchivo(){
           try{
         	  // Creamos la direccion IP de la maquina que recibira el archivo
-        	  InetAddress direccion = InetAddress.getByName( "192.168.1.12" );
+        	  //InetAddress direccion = InetAddress.getByName( "10.0.0.12" );
          
         	  // Creamos el Socket con la direccion y elpuerto de comunicacion
-        	  Socket socket = new Socket( direccion, 4400 );
-        	  socket.setSoTimeout( 2000 );
+        	  Socket socket = new Socket( "localhost", 4400 );
+        	  socket.setSoTimeout( 500 );
         	  socket.setKeepAlive( true );
          
         	  // Creamos el archivo que vamos a enviar
