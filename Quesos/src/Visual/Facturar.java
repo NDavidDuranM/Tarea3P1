@@ -38,7 +38,7 @@ public class Facturar extends JFrame {
 	private JTable tableQuesoSeleccionado;
 	private JTextField txtCodigoFactura;
 	
-	private Facturar factura;
+	private Factura factura;
 	private File dirfactura;
 
 
@@ -63,12 +63,12 @@ public class Facturar extends JFrame {
 	 */
 	public Facturar(ComplejoDeQueso complejo) throws IOException {
 		
-		factura = new Facturar(null);
+		factura = new Factura("",null,0,0);
 		dirfactura =new File("Factura.txt");
 		try {
 			FileInputStream Fi = new FileInputStream(dirfactura);
 			ObjectInputStream input = new ObjectInputStream(Fi);
-			factura =(Facturar) input.readObject();
+			factura =(Factura) input.readObject();
 			input.close();
 			Fi.close();
 			
